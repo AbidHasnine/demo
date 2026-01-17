@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem Forum - CodeCollab</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/problems.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🎓 CodeCollab</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="problems.html" class="active">Problem Forum</a></li>
+                <li><a href="collab.html">Collab Space</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Problems Section -->
+    <div class="container">
+        <h1 class="page-title">Problem Forum</h1>
+        <p class="page-subtitle">Ask questions, share solutions, and help the community</p>
+
+        <!-- Post Problem Button -->
+        <div class="action-section">
+            <button id="show-form-btn" class="btn btn-primary">+ Post a Problem</button>
+        </div>
+
+        <!-- Problem Form (Hidden by default) -->
+        <div id="problem-form-container" class="form-container" style="display: none;">
+            <h2>Post Your Problem</h2>
+            <form id="problem-form" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Title *</label>
+                    <input type="text" id="title" name="title" required 
+                           placeholder="Brief description of your problem">
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description *</label>
+                    <textarea id="description" name="description" rows="6" required 
+                              placeholder="Provide detailed information about your problem..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="photo">Add Photo</label>
+                        <input type="file" id="photo" name="photo" accept="image/*">
+                        <span class="file-hint">Upload a screenshot or image</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file">Add File</label>
+                        <input type="file" id="file" name="file">
+                        <span class="file-hint">Upload code file or document</span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Submit Problem</button>
+                    <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">Loading problems...</div>
+
+        <!-- Problems Feed -->
+        <div id="problems-feed" class="problems-feed"></div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+            <p>No problems posted yet. Be the first to ask a question!</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 CodeCollab. Built with Spring Boot & Vanilla JavaScript.</p>
+    </footer>
+
+    <script src="js/problems.js"></script>
+</body>
+</html>

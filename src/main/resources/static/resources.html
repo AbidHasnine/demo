@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - CodeCollab</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/resources.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>🎓 CodeCollab</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html" class="active">Resources</a></li>
+                <li><a href="problems.html">Problem Forum</a></li>
+                <li><a href="collab.html">Collab Space</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Resources Section -->
+    <div class="container">
+        <h1 class="page-title">Learning Resources</h1>
+        <p class="page-subtitle">Explore curated resources to enhance your programming skills</p>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <button class="filter-btn active" data-category="all">All Resources</button>
+            <button class="filter-btn" data-category="OOP">OOP</button>
+            <button class="filter-btn" data-category="DSA">DSA</button>
+            <button class="filter-btn" data-category="Web Dev">Web Dev</button>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">Loading resources...</div>
+
+        <!-- Resources Grid -->
+        <div id="resources-grid" class="resources-grid"></div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="empty-state" style="display: none;">
+            <p>No resources found for this category.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 CodeCollab. Built with Spring Boot & Vanilla JavaScript.</p>
+    </footer>
+
+    <script src="js/resources.js"></script>
+</body>
+</html>
