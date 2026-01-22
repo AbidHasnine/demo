@@ -12,30 +12,37 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>🎓 CodeCollab</h2>
+                <h2>💻 CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="problems.html" class="active">Problem Forum</a></li>
                 <li><a href="collab.html">Collab Space</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Problems Section -->
-    <div class="container">
-        <h1 class="page-title">Problem Forum</h1>
-        <p class="page-subtitle">Ask questions, share solutions, and help the community</p>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>💬 Problem Forum</h1>
+        <p>Ask questions, share solutions, and help the community grow</p>
+    </div>
 
+    <!-- Problems Section -->
+    <div class="container" style="padding-top: 3rem;">
         <!-- Post Problem Button -->
         <div class="action-section">
-            <button id="show-form-btn" class="btn btn-primary">+ Post a Problem</button>
+            <button id="show-form-btn" class="btn btn-primary" style="background: var(--gradient-primary); color: white;">
+                ✏️ Post a Problem
+            </button>
         </div>
 
         <!-- Problem Form (Hidden by default) -->
         <div id="problem-form-container" class="form-container" style="display: none;">
-            <h2>Post Your Problem</h2>
+            <h2>✍️ Post Your Problem</h2>
+            <p>Describe your coding challenge and get help from the community</p>
             <form id="problem-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title *</label>
@@ -46,25 +53,25 @@
                 <div class="form-group">
                     <label for="description">Description *</label>
                     <textarea id="description" name="description" rows="6" required 
-                              placeholder="Provide detailed information about your problem..."></textarea>
+                              placeholder="Provide detailed information about your problem. Include any error messages, what you've tried, and what you expected to happen..."></textarea>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="photo">Add Photo</label>
+                        <label for="photo">📷 Add Screenshot</label>
                         <input type="file" id="photo" name="photo" accept="image/*">
-                        <span class="file-hint">Upload a screenshot or image</span>
+                        <span class="file-hint">Upload a screenshot or image (optional)</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="file">Add File</label>
+                        <label for="file">📎 Add File</label>
                         <input type="file" id="file" name="file">
-                        <span class="file-hint">Upload code file or document</span>
+                        <span class="file-hint">Upload code file or document (optional)</span>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Submit Problem</button>
+                    <button type="submit" class="btn btn-primary">🚀 Submit Problem</button>
                     <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
                 </div>
             </form>
@@ -78,13 +85,14 @@
 
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">
-            <p>No problems posted yet. Be the first to ask a question!</p>
+            <h3>No problems posted yet</h3>
+            <p>Be the first to ask a question and get help from the community!</p>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 CodeCollab. Built with Spring Boot & Vanilla JavaScript.</p>
+        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
     </footer>
 
     <script src="js/problems.js"></script>

@@ -29,6 +29,12 @@
 	<properties>
 		<java.version>25</java.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>projectlombok.org</id>
+			<url>https://projectlombok.org/edge-releases</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<!-- Spring Boot Web (REST APIs) -->
 		<dependency>
@@ -52,7 +58,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>edge-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 		
 		<!-- Spring Boot Starter Test -->
@@ -73,6 +80,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>edge-SNAPSHOT</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>

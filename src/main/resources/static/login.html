@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - CodeCollab</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>💻 CodeCollab</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="problems.html">Problem Forum</a></li>
+                <li><a href="collab.html">Collab Space</a></li>
+                <li><a href="login.html" class="active">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-box">
+            <!-- Tab Switcher -->
+            <div class="tab-switcher">
+                <button class="tab-btn active" data-tab="login">Login</button>
+                <button class="tab-btn" data-tab="register">Register</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form active">
+                <h2>Welcome Back!</h2>
+                <p class="form-subtitle">Sign in to join collab rooms</p>
+                
+                <div class="form-group">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                
+                <div id="login-error" class="error-message"></div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Login</button>
+                
+                <p class="switch-text">
+                    Don't have an account? <a href="#" class="switch-link" data-tab="register">Register here</a>
+                </p>
+            </form>
+
+            <!-- Register Form -->
+            <form id="register-form" class="auth-form">
+                <h2>Create Account</h2>
+                <p class="form-subtitle">Join CodeCollab today</p>
+                
+                <div class="form-group">
+                    <label for="register-username">Username</label>
+                    <input type="text" id="register-username" placeholder="Choose a username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-display-name">Display Name</label>
+                    <input type="text" id="register-display-name" placeholder="Your display name (optional)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" placeholder="Create a password (min 4 chars)" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" placeholder="Confirm your password" required>
+                </div>
+                
+                <div id="register-error" class="error-message"></div>
+                <div id="register-success" class="success-message"></div>
+                
+                <button type="submit" class="btn btn-primary btn-full">Register</button>
+                
+                <p class="switch-text">
+                    Already have an account? <a href="#" class="switch-link" data-tab="login">Login here</a>
+                </p>
+            </form>
+        </div>
+
+        <!-- User Info (shown when logged in) -->
+        <div id="user-info" class="user-info-box" style="display: none;">
+            <div class="user-avatar">👤</div>
+            <h2>Welcome, <span id="user-display-name"></span>!</h2>
+            <p class="user-username">@<span id="user-username"></span></p>
+            <p class="user-status">You are logged in and ready to collaborate!</p>
+            
+            <div class="user-actions">
+                <a href="collab.html" class="btn btn-primary">Go to Collab Space</a>
+                <button id="logout-btn" class="btn btn-secondary">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
+    </footer>
+
+    <script src="js/login.js"></script>
+</body>
+</html>

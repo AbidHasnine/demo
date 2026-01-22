@@ -12,7 +12,7 @@ import java.util.List;
 public class MessageService {
     
     private final MessageRepository messageRepository;
-    
+
     public List<Message> getAllMessages() {
         return messageRepository.findAllByOrderBySentAtAsc();
     }

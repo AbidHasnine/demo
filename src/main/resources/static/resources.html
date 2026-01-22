@@ -12,22 +12,26 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>🎓 CodeCollab</h2>
+                <h2>💻 CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="resources.html" class="active">Resources</a></li>
                 <li><a href="problems.html">Problem Forum</a></li>
                 <li><a href="collab.html">Collab Space</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Resources Section -->
-    <div class="container">
-        <h1 class="page-title">Learning Resources</h1>
-        <p class="page-subtitle">Explore curated resources to enhance your programming skills</p>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>📚 Learning Resources</h1>
+        <p>Explore curated resources to enhance your programming skills</p>
+    </div>
 
+    <!-- Resources Section -->
+    <div class="container" style="padding-top: 3rem;">
         <!-- Category Filter -->
         <div class="category-filter">
             <button class="filter-btn active" data-category="all">All Resources</button>
@@ -44,13 +48,14 @@
 
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">
-            <p>No resources found for this category.</p>
+            <h3>No resources found</h3>
+            <p>No resources found for this category. Try selecting a different filter.</p>
         </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 CodeCollab. Built with Spring Boot & Vanilla JavaScript.</p>
+        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
     </footer>
 
     <script src="js/resources.js"></script>

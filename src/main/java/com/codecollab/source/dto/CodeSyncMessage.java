@@ -11,4 +11,5 @@ public class CodeSyncMessage {
     private String sender;
     private String code;
     private String language;
+    private String roomId;  // Room ID for room-based code sync
 }

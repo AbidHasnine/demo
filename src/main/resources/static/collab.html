@@ -12,30 +12,109 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>🎓 CodeCollab</h2>
+                <h2>💻 CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="problems.html">Problem Forum</a></li>
                 <li><a href="collab.html" class="active">Collab Space</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Username Modal -->
-    <div id="username-modal" class="modal">
-        <div class="modal-content">
-            <h2>Enter Your Name</h2>
-            <form id="username-form">
-                <input type="text" id="username-input" placeholder="Your name" required>
-                <button type="submit" class="btn btn-primary">Join Collab Space</button>
+    <!-- Room Selection Modal -->
+    <div id="room-modal" class="modal">
+        <div class="modal-content room-modal-content">
+            <h2>🚀 Join Collab Space</h2>
+            <p class="modal-subtitle">Create a new room or join an existing one</p>
+            
+            <!-- Tab Switcher -->
+            <div class="room-tab-switcher">
+                <button class="room-tab-btn active" data-tab="create">Create Room</button>
+                <button class="room-tab-btn" data-tab="join">Join Room</button>
+            </div>
+            
+            <!-- Create Room Form -->
+            <form id="create-room-form" class="room-form active">
+                <div class="form-group">
+                    <label for="creator-username">Your Name</label>
+                    <input type="text" id="creator-username" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-name">Room Name</label>
+                    <input type="text" id="room-name" placeholder="e.g., Study Group 1" required>
+                </div>
+                <div class="form-group">
+                    <label for="room-password">Room Password</label>
+                    <input type="password" id="room-password" placeholder="Min 4 characters" required>
+                </div>
+                <div id="create-error" class="error-message"></div>
+                <button type="submit" class="btn btn-primary btn-full">Create Room</button>
             </form>
+            
+            <!-- Join Room Form -->
+            <form id="join-room-form" class="room-form">
+                <div class="form-group">
+                    <label for="join-username">Your Name</label>
+                    <input type="text" id="join-username" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="join-room-id">Room ID</label>
+                    <input type="text" id="join-room-id" placeholder="e.g., ABC123" required style="text-transform: uppercase;">
+                </div>
+                <div class="form-group">
+                    <label for="join-password">Room Password</label>
+                    <input type="password" id="join-password" placeholder="Enter room password" required>
+                </div>
+                <div id="join-error" class="error-message"></div>
+                <button type="submit" class="btn btn-primary btn-full">Join Room</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Room Created Success Modal -->
+    <div id="room-created-modal" class="modal" style="display: none;">
+        <div class="modal-content room-created-content">
+            <h2>🎉 Room Created!</h2>
+            <p class="modal-subtitle">Share these credentials with your team</p>
+            
+            <div class="room-credentials">
+                <div class="credential-item">
+                    <label>Room ID</label>
+                    <div class="credential-value">
+                        <span id="created-room-id"></span>
+                        <button type="button" class="copy-btn" onclick="copyToClipboard('created-room-id')">📋 Copy</button>
+                    </div>
+                </div>
+                <div class="credential-item">
+                    <label>Password</label>
+                    <div class="credential-value">
+                        <span id="created-room-password"></span>
+                        <button type="button" class="copy-btn" onclick="copyToClipboard('created-room-password')">📋 Copy</button>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="button" class="btn btn-primary btn-full" onclick="enterRoom()">Enter Room</button>
         </div>
     </div>
 
     <!-- Collab Space Container -->
     <div class="collab-container" style="display: none;">
+        <!-- Room Info Bar -->
+        <div class="room-info-bar">
+            <div class="room-info-left">
+                <span class="room-badge">🏠 Room: <strong id="current-room-id"></strong></span>
+                <span class="room-name-display" id="current-room-name"></span>
+            </div>
+            <div class="room-info-right">
+                <span class="users-count">👥 <span id="active-users-count">0</span> users</span>
+                <button id="leave-room-btn" class="btn btn-secondary btn-small">Leave Room</button>
+            </div>
+        </div>
+
         <!-- Left Panel: Chat -->
         <div class="chat-panel">
             <div class="panel-header">
@@ -64,7 +143,7 @@
             </div>
             
             <div class="editor-info">
-                <p>💡 Code changes sync in real-time across all users</p>
+                <p>💡 Code changes sync in real-time across all users in this room</p>
             </div>
             
             <textarea id="code-editor" class="code-editor" placeholder="Start typing your code here..."></textarea>

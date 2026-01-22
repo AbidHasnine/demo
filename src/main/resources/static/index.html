@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeCollab - Learning Platform</title>
+    <title>CodeCollab - Collaborative Learning Platform</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -11,13 +11,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>🎓 CodeCollab</h2>
+                <h2>💻 CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="problems.html">Problem Forum</a></li>
                 <li><a href="collab.html">Collab Space</a></li>
+                <li><a href="login.html">Login</a></li>
             </ul>
         </div>
     </nav>
@@ -25,15 +26,16 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Welcome to CodeCollab</h1>
-            <p class="hero-subtitle">Your Ultimate Learning Platform for Collaborative Coding</p>
+            <h1 class="hero-title">Learn, Code & Collaborate Together</h1>
+            <p class="hero-subtitle">Your Ultimate Platform for Collaborative Programming</p>
             <p class="hero-description">
                 Master programming concepts, solve problems together, and collaborate in real-time 
-                with developers from around the world.
+                with developers from around the world. Create private rooms, share code instantly, 
+                and learn faster together.
             </p>
             <div class="hero-buttons">
-                <a href="resources.html" class="btn btn-primary">Explore Resources</a>
-                <a href="collab.html" class="btn btn-secondary">Start Collaborating</a>
+                <a href="collab.html" class="btn btn-primary">🚀 Start Collaborating</a>
+                <a href="resources.html" class="btn btn-outline">📚 Explore Resources</a>
             </div>
         </div>
     </section>
@@ -41,26 +43,54 @@
     <!-- Features Section -->
     <section class="features">
         <h2 class="section-title">What We Offer</h2>
+        <p class="section-subtitle">Everything you need to learn programming effectively and collaborate with others</p>
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">📚</div>
                 <h3>Learning Resources</h3>
-                <p>Access curated resources on OOP, Data Structures, Algorithms, and Web Development.</p>
+                <p>Access curated resources on OOP, Data Structures, Algorithms, and Web Development with organized categories.</p>
                 <a href="resources.html" class="feature-link">Browse Resources →</a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">💬</div>
                 <h3>Problem Forum</h3>
-                <p>Post questions, share solutions, and help others overcome coding challenges.</p>
+                <p>Post questions, share solutions, and help others overcome coding challenges in our supportive community.</p>
                 <a href="problems.html" class="feature-link">Ask Questions →</a>
             </div>
 
             <div class="feature-card">
                 <div class="feature-icon">🤝</div>
-                <h3>Collab Space</h3>
-                <p>Real-time chat and shared code editor for collaborative programming sessions.</p>
-                <a href="collab.html" class="feature-link">Start Collab →</a>
+                <h3>Private Collab Rooms</h3>
+                <p>Create password-protected rooms for your team with real-time chat and shared code editor.</p>
+                <a href="collab.html" class="feature-link">Create Room →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="features" style="background: var(--light-color); padding: 5rem 2rem; max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">How Collab Rooms Work</h2>
+            <p class="section-subtitle">Start collaborating in just 3 simple steps</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">1️⃣</div>
+                    <h3>Create a Room</h3>
+                    <p>Set up a private room with a name and password. Get a unique Room ID to share with your team.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">2️⃣</div>
+                    <h3>Share Credentials</h3>
+                    <p>Share the Room ID and password with your teammates. They can join from anywhere!</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">3️⃣</div>
+                    <h3>Code Together</h3>
+                    <p>Chat in real-time and see code changes instantly. Everything syncs automatically!</p>
+                </div>
             </div>
         </div>
     </section>
@@ -80,12 +110,26 @@
                 <h3 class="stat-number">1000+</h3>
                 <p class="stat-label">Active Learners</p>
             </div>
+            <div class="stat-item">
+                <h3 class="stat-number">∞</h3>
+                <p class="stat-label">Collab Sessions</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="padding: 5rem 2rem; text-align: center; background: white;">
+        <h2 class="section-title">Ready to Start Collaborating?</h2>
+        <p class="section-subtitle">Join thousands of developers learning and coding together</p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+            <a href="login.html" class="btn btn-secondary">👤 Create Account</a>
+            <a href="collab.html" class="btn btn-primary" style="background: var(--primary-color); color: white;">🚀 Start Now - No Account Needed</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 CodeCollab. Built with Spring Boot & Vanilla JavaScript.</p>
+        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
     </footer>
 </body>
 </html>
