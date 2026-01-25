@@ -1,115 +1,113 @@
 package com.codecollab.source.service;
 
 import com.codecollab.source.dto.ExecuteCodeResponse;
-import lombok.Data;
+import com.codecollab.source.service.manager.ProcessManager;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-import java.util.Collections;
-import java.util.List;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.function.Consumer;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CompilerService {
 
-    private final RestTemplate restTemplate = new RestTemplate();
-    private static final String PISTON_API_URL = "https://emkc.org/api/v2/piston/execute";
+    private final ProcessManager processManager;
 
-    public ExecuteCodeResponse executeCode(String code, String language, String input) {
-        try {
-            PistonRequest request = createPistonRequest(code, language, input);
-            PistonResponse response = restTemplate.postForObject(PISTON_API_URL, request, PistonResponse.class);
-
-            if (response != null) {
-                if (response.getMessage() != null) {
-                    return new ExecuteCodeResponse("Piston API Error: " + response.getMessage(), true);
-                }
-
-                if (response.getRun() != null) {
-                    String output = response.getRun().getOutput();
-
-                    // Fallback if output is null
-                    if (output == null) {
-                        output = "";
-                        if (response.getRun().getStdout() != null)
-                            output += response.getRun().getStdout();
-                        if (response.getRun().getStderr() != null)
-                            output += "\n" + response.getRun().getStderr();
-                    }
-
-                    if (output.isEmpty()) {
-                        output = "Program executed successfully but returned no output.";
-                    }
-
-                    boolean isError = response.getRun().getCode() != 0;
-                    return new ExecuteCodeResponse(output, isError);
-                }
+    public void executeInteractive(String code, String language, String sessionId, Consumer<ExecuteCodeResponse> outputCallback) {
+        new Thread(() -> {
+            if (!"cpp".equalsIgnoreCase(language)) {
+                outputCallback.accept(new ExecuteCodeResponse("Only C++ is supported.", true));
+                return;
             }
 
-            return new ExecuteCodeResponse("Failed to execute code: No valid response from compiler API", true);
+            Path tempDir = null;
+            try {
+                tempDir = Files.createTempDirectory("codecollab-compiler");
+                Path sourceFile = tempDir.resolve("main.cpp");
+                Files.writeString(sourceFile, code);
 
-        } catch (Exception e) {
-            return new ExecuteCodeResponse("Error executing code: " + e.getMessage(), true);
+                ProcessBuilder compileBuilder = new ProcessBuilder("g++", sourceFile.toString(), "-o", tempDir.resolve("main").toString());
+                Process compileProcess = compileBuilder.start();
+                int compileExitCode = compileProcess.waitFor();
+
+                if (compileExitCode != 0) {
+                    String error = readStream(compileProcess.getErrorStream());
+                    outputCallback.accept(new ExecuteCodeResponse(error, true));
+                    return;
+                }
+
+                ProcessBuilder executeBuilder = new ProcessBuilder(tempDir.resolve("main").toString());
+                Process executeProcess = executeBuilder.start();
+                processManager.addProcess(sessionId, executeProcess);
+
+                readStream(executeProcess.getInputStream(), (output) -> outputCallback.accept(new ExecuteCodeResponse(output, false)));
+                readStream(executeProcess.getErrorStream(), (output) -> outputCallback.accept(new ExecuteCodeResponse(output, true)));
+
+                int executeExitCode = executeProcess.waitFor();
+                outputCallback.accept(new ExecuteCodeResponse("\nProcess finished with exit code " + executeExitCode, false));
+
+            } catch (IOException | InterruptedException e) {
+                log.error("Error during code execution", e);
+                outputCallback.accept(new ExecuteCodeResponse("Error executing code: " + e.getMessage(), true));
+            } finally {
+                processManager.removeProcess(sessionId);
+                if (tempDir != null) {
+                    try {
+                        Files.walk(tempDir)
+                             .map(Path::toFile)
+                             .forEach(File::delete);
+                    } catch (IOException e) {
+                        log.error("Failed to delete temp directory: {}", tempDir, e);
+                    }
+                }
+            }
+        }).start();
+    }
+
+    public void sendInput(String sessionId, String input) {
+        OutputStream outputStream = processManager.getOutputStream(sessionId);
+        if (outputStream != null) {
+            try {
+                outputStream.write((input + "\n").getBytes());
+                outputStream.flush();
+            } catch (IOException e) {
+                log.error("Error sending input to process", e);
+            }
         }
     }
 
-    private PistonRequest createPistonRequest(String code, String language, String input) {
-        String pistonLang;
-        String version;
-        String fileName = "main";
-
-        // Only support C++ now
-        if (!"cpp".equalsIgnoreCase(language)) {
-            throw new IllegalArgumentException("Only C++ is supported. Received: " + language);
+    private void readStream(InputStream stream, Consumer<String> outputConsumer) {
+        new Thread(() -> {
+            try {
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = stream.read(buffer)) != -1) {
+                    outputConsumer.accept(new String(buffer, 0, bytesRead));
+                }
+            } catch (IOException e) {
+                log.info("Stream closed.", e);
+            }
+        }).start();
+    }
+    
+    private String readStream(InputStream stream) throws IOException {
+        StringBuilder result = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                result.append(line).append("\n");
+            }
         }
-
-        pistonLang = "c++";
-        version = "10.2.0";
-        fileName = "main.cpp";
-
-        PistonFile file = new PistonFile(fileName, code);
-        return new PistonRequest(pistonLang, version, Collections.singletonList(file), input);
-    }
-
-    // Inner classes for Piston API mapping
-    @Data
-    private static class PistonRequest {
-        private String language;
-        private String version;
-        private List<PistonFile> files;
-        private String stdin;
-
-        public PistonRequest(String language, String version, List<PistonFile> files, String stdin) {
-            this.language = language;
-            this.version = version;
-            this.files = files;
-            this.stdin = stdin != null ? stdin : "";
-        }
-    }
-
-    @Data
-    private static class PistonFile {
-        private String name;
-        private String content;
-
-        public PistonFile(String name, String content) {
-            this.name = name;
-            this.content = content;
-        }
-    }
-
-    @Data
-    private static class PistonResponse {
-        private RunResult run;
-        private String message;
-    }
-
-    @Data
-    private static class RunResult {
-        private String stdout;
-        private String stderr;
-        private int code;
-        private String output;
+        return result.toString();
     }
 }

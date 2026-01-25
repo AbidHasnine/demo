@@ -364,98 +364,249 @@ body {
 }
 
 
-/* Three-Panel Container Layout */
-.three-panel-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 0;
-    height: calc(100vh - 140px);
-    background: #0f172a;
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+    padding: 0;
 }
 
-.editor-section, .input-section, .output-section {
+.tab-button {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
     border-right: 1px solid #334155;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.tab-button:hover {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.tab-button.active {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-bottom: 2px solid #667eea;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Tab Content Container */
+.tab-content-container {
+    height: calc(100vh - 180px);
+    background: #0f172a;
     overflow: hidden;
 }
 
-.output-section {
-    border-right: none;
+.tab-content {
+    display: none;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
 }
 
-.section-label {
+.tab-content.active {
+    display: flex;
+}
+
+/* Code Editor Tab - Full Width */
+.code-editor-container {
+    flex: 1;
+    width: 100%;
+    /*//overflow: auto;*/
+}
+
+/* Terminal Tab - Unified Terminal */
+.terminal-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #0d1117;
+    border-radius: 0;
+}
+
+.terminal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 0.75rem;
-    background: #1e293b;
-    border-bottom: 1px solid #334155;
-    color: #94a3b8;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    padding: 0.5rem 1rem;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
 }
 
-.clear-btn-small {
+.terminal-title {
+    color: #8b949e;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.terminal-clear-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.7rem;
     background: transparent;
-    border: none;
-    color: #64748b;
-    cursor: pointer;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    border-radius: 4px;
     font-size: 0.75rem;
-    padding: 2px 4px;
-    border-radius: 3px;
-    transition: all 0.2s;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-.clear-btn-small:hover {
-    color: #e2e8f0;
-    background: #334155;
+.terminal-clear-btn:hover {
+    background: #21262d;
+    color: #c9d1d9;
+    border-color: #8b949e;
 }
 
-.code-editor-container {
+.terminal-body {
     flex: 1;
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
-.input-terminal {
+.terminal-content {
     flex: 1;
-    padding: 0.75rem;
-    background: #0f172a;
-    color: #e2e8f0;
-    border: none;
-    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.85rem;
-    resize: none;
-    outline: none;
-    line-height: 1.6;
-}
-
-.input-terminal::placeholder {
-    color: #475569;
-    font-style: italic;
-}
-
-.output-console {
-    flex: 1;
-    padding: 0.75rem;
-    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.85rem;
-    color: #e2e8f0;
     overflow-y: auto;
+    padding: 1rem;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: #c9d1d9;
+    line-height: 1.6;
+    background: #0d1117;
+}
+
+.terminal-line {
+    margin-bottom: 0.25rem;
     white-space: pre-wrap;
     word-break: break-word;
-    background: #0f172a;
 }
 
-.output-console.error {
-    color: #ef4444;
+.terminal-line.welcome {
+    color: #58a6ff;
+    font-weight: 600;
 }
 
-.placeholder-text {
-    color: #475569;
-    font-style: italic;
+.terminal-line.info {
+    color: #8b949e;
+}
+
+.terminal-line.prompt {
+    color: #c9d1d9;
+}
+
+.terminal-line.user-input {
+    color: #7ee787;
+}
+
+.terminal-line.user-input::before {
+    content: '> ';
+    color: #7ee787;
+}
+
+.terminal-line.output {
+    color: #c9d1d9;
+}
+
+.terminal-line.error {
+    color: #f85149;
+}
+
+.terminal-line.success {
+    color: #7ee787;
+}
+
+.terminal-line.waiting {
+    color: #ffa657;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.5; }
+}
+
+/* Terminal Input Line */
+.terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: #161b22;
+    border-top: 1px solid #30363d;
+}
+
+.terminal-prompt {
+    color: #7ee787;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.terminal-input-field {
+    flex: 1;
+    padding: 0.5rem 0.75rem;
+    background: #0d1117;
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.terminal-input-field:focus {
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.2);
+}
+
+.terminal-input-field::placeholder {
+    color: #484f58;
+}
+
+.terminal-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.75rem;
+    background: #238636;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.terminal-submit-btn:hover {
+    background: #2ea043;
+}
+
+.terminal-submit-btn:active {
+    transform: scale(0.98);
 }
 
 
@@ -495,7 +646,7 @@ body {
 @media (max-width: 968px) {
     .collab-container {
         grid-template-columns: 1fr;
-        grid-template-rows: 50% 50%;
+        grid-template-rows: auto 1fr;
     }
     
     .chat-panel {

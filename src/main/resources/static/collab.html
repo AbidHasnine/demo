@@ -62,7 +62,7 @@
             </form>
         </div>
 
-        <!-- Right Panel: Shared Compiler (Three-Panel Layout) -->
+        <!-- Right Panel: VSCode-style Editor with Tabs -->
         <div class="compiler-panel">
             <div class="panel-header">
                 <div class="header-left">
@@ -73,34 +73,48 @@
                 </button>
             </div>
 
-            <!-- Three-Panel Grid: Code Editor | Input | Output -->
-            <div class="three-panel-container">
-                <!-- Code Editor Panel -->
-                <div class="editor-section">
-                    <div class="section-label">Code Editor</div>
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button class="tab-button active" data-tab="code-tab">
+                    <i class="fas fa-file-code"></i> main.cpp
+                </button>
+                <button class="tab-button" data-tab="terminal-tab">
+                    <i class="fas fa-terminal"></i> Terminal
+                </button>
+            </div>
+
+            <!-- Tab Content Container -->
+            <div class="tab-content-container">
+                <!-- Code Editor Tab -->
+                <div id="code-tab" class="tab-content active">
                     <div id="code-editor-container" class="code-editor-container"></div>
                     <div class="editor-status">
                         <span id="editor-user"></span>
                     </div>
                 </div>
 
-                <!-- Input Panel -->
-                <div class="input-section">
-                    <div class="section-label">
-                        <span>Input (stdin)</span>
-                        <button id="clear-input-btn" class="clear-btn-small"><i class="fas fa-times"></i></button>
-                    </div>
-                    <textarea id="input-terminal" class="input-terminal" placeholder="Enter input for your program here..."></textarea>
-                </div>
-
-                <!-- Output Panel -->
-                <div class="output-section">
-                    <div class="section-label">
-                        <span>Output</span>
-                        <button id="clear-output-btn" class="clear-btn-small"><i class="fas fa-times"></i></button>
-                    </div>
-                    <div id="output-console" class="output-console">
-                        <span class="placeholder-text">Run code to see output...</span>
+                <!-- Terminal Tab -->
+                <div id="terminal-tab" class="tab-content">
+                    <div class="terminal-container">
+                        <div class="terminal-header">
+                            <span class="terminal-title"><i class="fas fa-terminal"></i> Terminal</span>
+                            <button id="clear-terminal-btn" class="terminal-clear-btn">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                        </div>
+                        <div class="terminal-body" id="terminal-body">
+                            <div class="terminal-content" id="terminal-content">
+                                <div class="terminal-line welcome">$ CodeCollab Terminal Ready</div>
+                                <div class="terminal-line info">Click "Run Code" to execute your program...</div>
+                            </div>
+                            <div class="terminal-input-line" id="terminal-input-line" style="display: none;">
+                                <span class="terminal-prompt">&gt;</span>
+                                <input type="text" id="terminal-input" class="terminal-input-field" placeholder="Enter input..." autofocus />
+                                <button id="submit-input-btn" class="terminal-submit-btn">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
