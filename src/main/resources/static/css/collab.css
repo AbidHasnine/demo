@@ -4,219 +4,6 @@ body {
     overflow: hidden;
 }
 
-/* Modal Base */
-.modal {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    box-sizing: border-box;
-}
-
-.modal-content {
-    background: #1e1e2e;
-    padding: 1.5rem;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    min-width: 300px;
-    border: 1px solid #333;
-    max-height: 90vh;
-    overflow-y: auto;
-}
-
-.modal-content h2 {
-    margin-bottom: 0.25rem;
-    color: #fff;
-    text-align: center;
-    font-size: 1.35rem;
-}
-
-.modal-subtitle {
-    color: #888;
-    text-align: center;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-}
-
-.modal-content form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-.modal-content input {
-    padding: 0.65rem 0.75rem;
-    border: 2px solid #333;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    background: #16161e;
-    color: #fff;
-}
-
-.modal-content input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.modal-content input::placeholder {
-    color: #666;
-}
-
-/* Room Modal Specific */
-.room-modal-content {
-    width: 100%;
-    max-width: 380px;
-}
-
-/* Room Tab Switcher */
-.room-tab-switcher {
-    display: flex;
-    gap: 6px;
-    margin-bottom: 1rem;
-    background: #16161e;
-    border-radius: 10px;
-    padding: 4px;
-}
-
-.room-tab-btn {
-    flex: 1;
-    padding: 10px 16px;
-    border: none;
-    background: transparent;
-    color: #888;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.room-tab-btn:hover {
-    color: #fff;
-}
-
-.room-tab-btn.active {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: #fff;
-}
-
-/* Room Forms */
-.room-form {
-    display: none;
-}
-
-.room-form.active {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-}
-
-.room-form .form-group {
-    margin-bottom: 0;
-}
-
-.room-form .form-group label {
-    display: block;
-    color: #ccc;
-    margin-bottom: 5px;
-    font-weight: 500;
-    font-size: 0.85rem;
-}
-
-.room-form .form-group input {
-    width: 100%;
-    padding: 10px 12px;
-    box-sizing: border-box;
-}
-
-/* Error Message */
-.error-message {
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.3);
-    padding: 8px 10px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    display: none;
-}
-
-.error-message.show {
-    display: block;
-}
-
-/* Button Full Width */
-.btn-full {
-    width: 100%;
-    padding: 12px 18px;
-    font-size: 0.95rem;
-    margin-top: 0.5rem;
-}
-
-/* Room Created Modal */
-.room-created-content {
-    text-align: center;
-    max-width: 380px;
-}
-
-.room-credentials {
-    background: #16161e;
-    border-radius: 12px;
-    padding: 1rem;
-    margin: 1rem 0;
-}
-
-.credential-item {
-    margin-bottom: 0.75rem;
-}
-
-.credential-item:last-child {
-    margin-bottom: 0;
-}
-
-.credential-item label {
-    display: block;
-    color: #888;
-    font-size: 0.8rem;
-    margin-bottom: 5px;
-}
-
-.credential-value {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-}
-
-.credential-value span {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #667eea;
-    letter-spacing: 2px;
-}
-
-.copy-btn {
-    padding: 5px 10px;
-    border: 1px solid #444;
-    background: #2a2a3e;
-    color: #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-}
-
-.copy-btn:hover {
-    background: #3a3a4e;
-    color: #fff;
-}
-
 /* Room Info Bar */
 .room-info-bar {
     grid-column: 1 / -1;
@@ -484,6 +271,12 @@ body {
 }
 
 /* Compiler Panel */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .language-select {
     padding: 0.5rem 1rem;
     border: 2px solid var(--border-color);
@@ -505,8 +298,39 @@ body {
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
 }
 
+.run-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.5rem 1rem;
+    background: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+}
+
+.run-btn:hover {
+    background: #059669;
+    transform: translateY(-1px);
+}
+
+.run-btn:active {
+    transform: translateY(0);
+}
+
+.run-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 .editor-info {
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1.25rem;
     background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
     border-bottom: 1px solid #fcd34d;
     text-align: center;
@@ -515,38 +339,138 @@ body {
 .editor-info p {
     margin: 0;
     color: #92400e;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 500;
 }
 
-.code-editor {
+/* Styles for CodeMirror editor */
+.CodeMirror {
+  height: auto; /* Allow CodeMirror to fill available height */
+  flex: 2; /* Take twice the space of output panel */
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  color: #e2e8f0;
+  tab-size: 4;
+}
+
+.CodeMirror-vscrollbar { /* Hide default vertical scrollbar if needed */
+  overflow-x: auto;
+}
+
+.CodeMirror-hscrollbar { /* Hide default horizontal scrollbar if needed */
+  overflow-y: auto;
+}
+
+
+/* Three-Panel Container Layout */
+.three-panel-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 0;
+    height: calc(100vh - 140px);
+    background: #0f172a;
+}
+
+.editor-section, .input-section, .output-section {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #334155;
+    overflow: hidden;
+}
+
+.output-section {
+    border-right: none;
+}
+
+.section-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: #1e293b;
+    border-bottom: 1px solid #334155;
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.clear-btn-small {
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: all 0.2s;
+}
+
+.clear-btn-small:hover {
+    color: #e2e8f0;
+    background: #334155;
+}
+
+.code-editor-container {
     flex: 1;
-    padding: 1.25rem;
+    overflow: auto;
+}
+
+.input-terminal {
+    flex: 1;
+    padding: 0.75rem;
+    background: #0f172a;
+    color: #e2e8f0;
     border: none;
     font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
     resize: none;
-    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-    color: #e2e8f0;
-    tab-size: 4;
-}
-
-.code-editor:focus {
     outline: none;
+    line-height: 1.6;
 }
 
-.code-editor::placeholder {
-    color: #64748b;
+.input-terminal::placeholder {
+    color: #475569;
+    font-style: italic;
+}
+
+.output-console {
+    flex: 1;
+    padding: 0.75rem;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85rem;
+    color: #e2e8f0;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    background: #0f172a;
+}
+
+.output-console.error {
+    color: #ef4444;
+}
+
+.placeholder-text {
+    color: #475569;
+    font-style: italic;
+}
+
+
+.CodeMirror-remote-selection {
+    background-color: rgba(102, 126, 234, 0.2); /* Example: a soft blue transparent background */
 }
 
 .editor-status {
-    padding: 0.6rem 1.25rem;
-    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    border-top: 1px solid var(--border-color);
-    font-size: 0.85rem;
-    color: var(--text-light);
+    padding: 0.4rem 0.75rem;
+    background: #1e293b;
+    border-top: 1px solid #334155;
+    font-size: 0.7rem;
+    color: #64748b;
     font-weight: 500;
+    min-height: 24px;
 }
 
 /* Scrollbar Styling */
@@ -578,4 +502,21 @@ body {
         border-right: none;
         border-bottom: 2px solid var(--border-color);
     }
+    
+    .three-panel-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr 1fr;
+    }
+    
+    .editor-section, .input-section {
+        border-right: none;
+        border-bottom: 1px solid #334155;
+    }
+}
+
+/* Style for when a remote user is typing */
+.CodeMirror.typing-remote {
+    border: 2px solid #667eea; /* A bright color to indicate activity */
+    box-shadow: 0 0 12px rgba(102, 126, 234, 0.6);
+    transition: all 0.3s ease-in-out;
 }

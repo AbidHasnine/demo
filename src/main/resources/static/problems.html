@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Problem Forum - CodeCollab</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/problems.css">
 </head>
@@ -12,13 +13,12 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>💻 CodeCollab</h2>
+                <h2><i class="fas fa-laptop-code" style="color: var(--primary-color);"></i> CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="problems.html" class="active">Problem Forum</a></li>
-                <li><a href="collab.html">Collab Space</a></li>
                 <li><a href="login.html">Login</a></li>
             </ul>
         </div>
@@ -26,7 +26,7 @@
 
     <!-- Page Header -->
     <div class="page-header">
-        <h1>💬 Problem Forum</h1>
+        <h1><i class="fas fa-comments"></i> Problem Forum</h1>
         <p>Ask questions, share solutions, and help the community grow</p>
     </div>
 
@@ -34,15 +34,15 @@
     <div class="container" style="padding-top: 3rem;">
         <!-- Post Problem Button -->
         <div class="action-section">
-            <button id="show-form-btn" class="btn btn-primary" style="background: var(--gradient-primary); color: white;">
-                ✏️ Post a Problem
+            <button id="show-form-btn" class="btn btn-primary">
+                <i class="fas fa-edit"></i> Post a Problem
             </button>
         </div>
 
         <!-- Problem Form (Hidden by default) -->
-        <div id="problem-form-container" class="form-container" style="display: none;">
-            <h2>✍️ Post Your Problem</h2>
-            <p>Describe your coding challenge and get help from the community</p>
+        <div id="problem-form-container" class="form-container card" style="display: none;">
+            <h2><i class="fas fa-pen-to-square"></i> Post Your Problem</h2>
+            <p class="form-subtitle">Describe your coding challenge and get help from the community</p>
             <form id="problem-form" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="title">Title *</label>
@@ -58,33 +58,34 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="photo">📷 Add Screenshot</label>
+                        <label for="photo"><i class="fas fa-camera"></i> Add Screenshot</label>
                         <input type="file" id="photo" name="photo" accept="image/*">
                         <span class="file-hint">Upload a screenshot or image (optional)</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="file">📎 Add File</label>
+                        <label for="file"><i class="fas fa-paperclip"></i> Add File</label>
                         <input type="file" id="file" name="file">
                         <span class="file-hint">Upload code file or document (optional)</span>
                     </div>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">🚀 Submit Problem</button>
-                    <button type="button" id="cancel-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-share"></i> Submit Problem</button>
+                    <button type="button" id="cancel-btn" class="btn btn-outline">Cancel</button>
                 </div>
             </form>
         </div>
 
         <!-- Loading Spinner -->
-        <div id="loading" class="loading">Loading problems...</div>
+        <div id="loading" class="loading"><div class="spinner"></div>Loading problems...</div>
 
         <!-- Problems Feed -->
         <div id="problems-feed" class="problems-feed"></div>
 
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">
+            <div class="icon"><i class="fas fa-question-circle"></i></div>
             <h3>No problems posted yet</h3>
             <p>Be the first to ask a question and get help from the community!</p>
         </div>
@@ -92,7 +93,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
+        <p>© 2024 CodeCollab. Built with <i class="fas fa-heart"></i> using Spring Boot & Vanilla JavaScript.</p>
     </footer>
 
     <script src="js/problems.js"></script>

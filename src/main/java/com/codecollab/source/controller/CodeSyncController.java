@@ -33,11 +33,13 @@ public class CodeSyncController {
     @MessageMapping("/code.sync/{roomId}")
     public void syncCode(@DestinationVariable String roomId, @Payload CodeSyncMessage codeSyncMessage) {
         codeSyncMessage.setRoomId(roomId);
-        
-        // Persist the code to the room
-        roomService.updateRoomCode(roomId, codeSyncMessage.getCode(), codeSyncMessage.getLanguage());
-        
-        // Broadcast to all users in the room
+
+        // Only persist the code to the room if it's a full update
+        if (CodeSyncMessage.MessageType.UPDATE.equals(codeSyncMessage.getType())) {
+            roomService.updateRoomCode(roomId, codeSyncMessage.getCode(), codeSyncMessage.getLanguage());
+        }
+
+        // Broadcast the message (typing status or full update) to all users in the room
         messagingTemplate.convertAndSend("/topic/room/" + roomId + "/code", codeSyncMessage);
     }
 }

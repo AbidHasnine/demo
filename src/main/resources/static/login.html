@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - CodeCollab</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>💻 CodeCollab</h2>
+                <h2><i class="fas fa-laptop-code"></i> CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="resources.html">Resources</a></li>
                 <li><a href="problems.html">Problem Forum</a></li>
-                <li><a href="collab.html">Collab Space</a></li>
                 <li><a href="login.html" class="active">Login</a></li>
             </ul>
         </div>
@@ -26,7 +29,7 @@
 
     <!-- Login Container -->
     <div class="login-container">
-        <div class="login-box">
+        <div class="login-box card">
             <!-- Tab Switcher -->
             <div class="tab-switcher">
                 <button class="tab-btn active" data-tab="login">Login</button>
@@ -94,8 +97,8 @@
         </div>
 
         <!-- User Info (shown when logged in) -->
-        <div id="user-info" class="user-info-box" style="display: none;">
-            <div class="user-avatar">👤</div>
+        <div id="user-info" class="user-info-box card" style="display: none;">
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
             <h2>Welcome, <span id="user-display-name"></span>!</h2>
             <p class="user-username">@<span id="user-username"></span></p>
             <p class="user-status">You are logged in and ready to collaborate!</p>
@@ -109,7 +112,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
+        <p>© 2024 CodeCollab. Built with <i class="fas fa-heart" style="color: red;"></i> using Spring Boot & Vanilla JavaScript.</p>
     </footer>
 
     <script src="js/login.js"></script>

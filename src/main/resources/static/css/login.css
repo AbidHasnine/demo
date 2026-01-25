@@ -1,35 +1,22 @@
 /* Login Page Styles */
 
 .login-container {
-    min-height: calc(100vh - 160px);
+    min-height: calc(100vh - 80px); /* Adjust for new navbar height */
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 20px;
-    background: var(--gradient-dark);
-    position: relative;
-}
-
-.login-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    opacity: 0.5;
+    padding: 2rem 1rem;
+    background: var(--light-bg); /* Use light-bg as overall background */
 }
 
 .login-box {
-    background: rgba(30, 30, 46, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    background: white; /* Card background */
+    border-radius: 12px;
     padding: 2.5rem;
     width: 100%;
-    max-width: 420px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 400px; /* Slightly smaller for minimalism */
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
     position: relative;
     z-index: 1;
 }
@@ -37,34 +24,35 @@
 /* Tab Switcher */
 .tab-switcher {
     display: flex;
-    gap: 8px;
+    gap: 0.5rem;
     margin-bottom: 2rem;
-    background: rgba(22, 22, 30, 0.8);
-    border-radius: 12px;
-    padding: 6px;
+    background: var(--light-bg);
+    border-radius: 8px;
+    padding: 4px;
 }
 
 .tab-btn {
     flex: 1;
-    padding: 12px 20px;
+    padding: 10px 16px;
     border: none;
     background: transparent;
-    color: #888;
-    font-size: 1rem;
-    font-weight: 600;
+    color: var(--dark-text);
+    font-size: 0.95rem;
+    font-weight: 500;
     cursor: pointer;
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    border-radius: 6px;
+    transition: all 0.2s ease;
 }
 
 .tab-btn:hover {
-    color: #ccc;
+    color: var(--primary-color);
 }
 
 .tab-btn.active {
-    background: var(--gradient-primary);
-    color: #fff;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    background: var(--primary-color);
+    color: white;
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
 }
 
 /* Auth Forms */
@@ -74,88 +62,77 @@
 
 .auth-form.active {
     display: block;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    animation: fadeIn 0.4s ease;
 }
 
 .auth-form h2 {
-    color: #fff;
-    font-size: 1.75rem;
-    margin-bottom: 0.5rem;
+    color: var(--dark-text);
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
     text-align: center;
     font-weight: 700;
 }
 
 .form-subtitle {
-    color: #888;
+    color: var(--dark-text);
     text-align: center;
     margin-bottom: 2rem;
     font-size: 0.95rem;
+    opacity: 0.7;
 }
 
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.2rem;
 }
 
 .form-group label {
     display: block;
-    color: #ccc;
-    margin-bottom: 8px;
+    color: var(--dark-text);
+    margin-bottom: 0.4rem;
     font-weight: 500;
     font-size: 0.9rem;
+    opacity: 0.8;
 }
 
 .form-group input {
     width: 100%;
-    padding: 14px 16px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    background: rgba(22, 22, 30, 0.8);
-    color: #fff;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: white;
+    color: var(--dark-text);
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     box-sizing: border-box;
 }
 
 .form-group input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-    background: rgba(22, 22, 30, 1);
+    box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.15);
 }
 
 .form-group input::placeholder {
-    color: #666;
+    color: #a0a7ae;
 }
 
 /* Buttons */
 .btn-full {
     width: 100%;
-    padding: 14px 20px;
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    border-radius: 12px;
-    background: var(--gradient-primary);
+    padding: 0.9rem 1.5rem;
+    font-size: 1.05rem;
+    margin-top: 1rem;
+    border-radius: 8px;
+    background: var(--primary-color);
     color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    transition: all 0.2s ease;
 }
 
 .btn-full:hover {
+    background: #7f3996;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-lg);
 }
 
 .btn-full:active {
@@ -163,76 +140,63 @@
 }
 
 /* Error and Success Messages */
-.error-message {
-    color: #ff6b6b;
-    background: rgba(255, 107, 107, 0.1);
-    border: 1px solid rgba(255, 107, 107, 0.3);
-    padding: 12px 16px;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+.error-message, .success-message {
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
     font-size: 0.9rem;
-    display: none;
     text-align: center;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .error-message.show {
     display: block;
-    animation: shake 0.4s ease;
-}
-
-@keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    75% { transform: translateX(5px); }
-}
-
-.success-message {
-    color: #51cf66;
-    background: rgba(81, 207, 102, 0.1);
-    border: 1px solid rgba(81, 207, 102, 0.3);
-    padding: 12px 16px;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    display: none;
-    text-align: center;
+    opacity: 1;
+    color: var(--danger-color);
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid rgba(231, 76, 60, 0.2);
 }
 
 .success-message.show {
     display: block;
-    animation: fadeIn 0.3s ease;
+    opacity: 1;
+    color: var(--success-color);
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.2);
 }
 
 /* Switch Text */
 .switch-text {
     text-align: center;
-    color: #888;
+    color: var(--dark-text);
     margin-top: 1.5rem;
     font-size: 0.9rem;
+    opacity: 0.7;
 }
 
 .switch-link {
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 600;
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 }
 
 .switch-link:hover {
-    color: #8b9cf4;
+    color: #7f3996;
     text-decoration: underline;
 }
 
 /* User Info Box (when logged in) */
 .user-info-box {
-    background: rgba(30, 30, 46, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
+    background: white;
+    border-radius: 12px;
     padding: 2.5rem;
     width: 100%;
-    max-width: 420px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 400px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
     text-align: center;
     position: relative;
     z-index: 1;
@@ -242,37 +206,33 @@
     font-size: 4rem;
     margin-bottom: 1rem;
     display: inline-block;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+    color: var(--secondary-color);
 }
 
 .user-info-box h2 {
-    color: #fff;
-    font-size: 1.5rem;
+    color: var(--dark-text);
+    font-size: 1.6rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
 }
 
 .user-username {
-    color: var(--primary-color);
+    color: var(--dark-text);
     font-size: 1rem;
     margin-bottom: 1rem;
     font-weight: 500;
+    opacity: 0.8;
 }
 
 .user-status {
-    color: #51cf66;
-    background: rgba(81, 207, 102, 0.15);
-    padding: 10px 20px;
-    border-radius: 25px;
+    color: var(--success-color);
+    background: rgba(46, 204, 113, 0.1);
+    padding: 8px 15px;
+    border-radius: 20px;
     font-size: 0.9rem;
     margin-bottom: 2rem;
     display: inline-block;
-    border: 1px solid rgba(81, 207, 102, 0.3);
+    border: 1px solid rgba(46, 204, 113, 0.2);
 }
 
 .user-actions {
@@ -282,37 +242,40 @@
 }
 
 .user-actions .btn {
-    padding: 14px 20px;
-    border-radius: 12px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
     font-weight: 600;
     font-size: 1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-decoration: none;
     text-align: center;
+    box-shadow: var(--shadow-sm);
 }
 
 .user-actions .btn-primary {
-    background: var(--gradient-primary);
+    background: var(--primary-color);
     color: white;
-    border: none;
 }
 
 .user-actions .btn-primary:hover {
+    background: #7f3996;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    box-shadow: var(--shadow-md);
 }
 
 .user-actions .btn-secondary {
-    background: transparent;
-    color: #ccc;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: white;
+    color: var(--dark-text);
+    border: 1px solid var(--border-color);
 }
 
 .user-actions .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
-    color: white;
+    background: var(--light-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 /* Responsive */
@@ -320,8 +283,7 @@
     .login-box,
     .user-info-box {
         padding: 2rem 1.5rem;
-        margin: 10px;
-        border-radius: 16px;
+        margin: 0.5rem;
     }
     
     .auth-form h2 {
@@ -329,7 +291,11 @@
     }
     
     .tab-btn {
-        padding: 10px 15px;
+        padding: 8px 12px;
         font-size: 0.9rem;
+    }
+
+    .form-subtitle {
+        font-size: 0.85rem;
     }
 }

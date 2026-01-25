@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resources - CodeCollab</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/resources.css">
 </head>
+
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h2>💻 CodeCollab</h2>
+                <h2><i class="fas fa-laptop-code" style="color: var(--primary-color);"></i> CodeCollab</h2>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="resources.html" class="active">Resources</a></li>
                 <li><a href="problems.html">Problem Forum</a></li>
-                <li><a href="collab.html">Collab Space</a></li>
                 <li><a href="login.html">Login</a></li>
             </ul>
         </div>
@@ -26,7 +28,7 @@
 
     <!-- Page Header -->
     <div class="page-header">
-        <h1>📚 Learning Resources</h1>
+        <h1><i class="fas fa-book-open"></i> Learning Resources</h1>
         <p>Explore curated resources to enhance your programming skills</p>
     </div>
 
@@ -41,13 +43,14 @@
         </div>
 
         <!-- Loading Spinner -->
-        <div id="loading" class="loading">Loading resources...</div>
+        <div id="loading" class="loading"><div class="spinner"></div>Loading resources...</div>
 
         <!-- Resources Grid -->
         <div id="resources-grid" class="resources-grid"></div>
 
         <!-- Empty State -->
         <div id="empty-state" class="empty-state" style="display: none;">
+            <div class="icon"><i class="fas fa-box-open"></i></div>
             <h3>No resources found</h3>
             <p>No resources found for this category. Try selecting a different filter.</p>
         </div>
@@ -55,9 +58,10 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>© 2024 CodeCollab. Built with ❤️ using Spring Boot & Vanilla JavaScript.</p>
+        <p>© 2024 CodeCollab. Built with <i class="fas fa-heart"></i> using Spring Boot & Vanilla JavaScript.</p>
     </footer>
 
     <script src="js/resources.js"></script>
 </body>
+
 </html>
