@@ -65,4 +65,20 @@ public class RoomController {
         
         return ResponseEntity.ok(response);
     }
+    
+    @GetMapping("/{roomId}/users-count")
+    public ResponseEntity<?> getRoomUsersCount(@PathVariable String roomId) {
+        Optional<Room> roomOpt = roomService.getRoomById(roomId);
+        
+        if (roomOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        
+        Room room = roomOpt.get();
+        return ResponseEntity.ok(java.util.Map.of(
+            "roomId", room.getRoomId(),
+            "usersCount", room.getActiveUsers().size(),
+            "users", room.getActiveUsers()
+        ));
+    }
 }

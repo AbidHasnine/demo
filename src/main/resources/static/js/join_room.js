@@ -50,11 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Room joined successfully, redirect to collab.html
-            // Store room credentials temporarily to pass to collab.html
-            sessionStorage.setItem('roomId', roomId);
-            sessionStorage.setItem('username', username);
+            // Store ONLY password in sessionStorage for later use (not shared data)
+            sessionStorage.setItem('roomPassword', password);
 
-            window.location.href = `collab.html?roomId=${roomId}&username=${username}`;
+            window.location.href = `collab.html?roomId=${roomId}&username=${encodeURIComponent(username)}`;
 
         } catch (error) {
             console.error('Error joining room:', error);

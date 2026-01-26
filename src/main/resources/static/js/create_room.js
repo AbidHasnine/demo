@@ -62,10 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
             createdRoomIdSpan.textContent = room.roomId;
             createdRoomPasswordSpan.textContent = room.password; // Display actual password
 
-            // Store room credentials temporarily to pass to collab.html
-            sessionStorage.setItem('roomId', room.roomId);
+            // Store ONLY password in sessionStorage for later use (not shared data)
             sessionStorage.setItem('roomPassword', room.password);
-            sessionStorage.setItem('username', username);
+            sessionStorage.setItem('currentRoomId', room.roomId);
+            sessionStorage.setItem('currentUsername', username);
 
             roomModal.style.display = 'none';
             roomCreatedModal.style.display = 'flex';
@@ -87,14 +87,13 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.enterRoom = () => {
-        const roomId = sessionStorage.getItem('roomId');
-        const username = sessionStorage.getItem('username');
+        const roomId = sessionStorage.getItem('currentRoomId');
+        const username = sessionStorage.getItem('currentUsername');
         const roomPassword = sessionStorage.getItem('roomPassword'); // Get password from session storage
 
         if (roomId && username && roomPassword) {
-            // Navigate to collab.html and pass credentials via URL parameters or session storage
-            // For simplicity and security, we'll use session storage here and clear after use.
-            window.location.href = `collab.html?roomId=${roomId}&username=${username}`;
+            // Navigate to collab.html - pass ALL data via URL to avoid cross-tab contamination
+            window.location.href = `collab.html?roomId=${roomId}&username=${encodeURIComponent(username)}`;
         } else {
             alert('Room information not found. Please create or join a room first.');
             window.location.href = 'index.html'; // Redirect to home if no room info
