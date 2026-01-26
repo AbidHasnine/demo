@@ -1,7 +1,6 @@
 package com.codecollab.source.controller;
 
-import com.codecollab.source.dto
-        .ChatMessage;
+import com.codecollab.source.dto.ChatMessage;
 import com.codecollab.source.dto.CodeSyncMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +25,14 @@ public class ChatMessageController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+
+        //This is for terminal debugging
         log.info("Chat message from {}: {}", chatMessage.getSender(), chatMessage.getContent());
+
+        //Toggles type in Chat message object
         chatMessage.setType(ChatMessage.MessageType.CHAT);
+
+        //returns the message to the specific page where all the users are
         return chatMessage;
     }
 
@@ -39,6 +44,7 @@ public class ChatMessageController {
         
         // Send message to room-specific topic for all users in that room
         String destination = "/topic/room/" + chatMessage.getRoomId();
+
         log.info("Broadcasting to destination: {}", destination);
         messagingTemplate.convertAndSend(destination, chatMessage);
         log.info("Message broadcast complete");
@@ -49,7 +55,8 @@ public class ChatMessageController {
     public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         String username = chatMessage.getSender();
         headerAccessor.getSessionAttributes().put("username", username);
-        
+
+
         log.info("User joined: {}", username);
         chatMessage.setType(ChatMessage.MessageType.JOIN);
         return chatMessage;
@@ -71,6 +78,7 @@ public class ChatMessageController {
         messagingTemplate.convertAndSend(destination, chatMessage);
     }
 
+    //FE to codeSyncMessage
     @MessageMapping("/code.sync")
     public void syncCode(@Payload CodeSyncMessage codeSyncMessage, SimpMessageHeaderAccessor headerAccessor) {
         String sender = codeSyncMessage.getSender();

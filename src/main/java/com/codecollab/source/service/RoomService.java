@@ -18,6 +18,7 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private static final String ROOM_ID_CHARS = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     private static final int ROOM_ID_LENGTH = 6;
+    //From here random room is generated
     private final SecureRandom random = new SecureRandom();
     
     public RoomResponse createRoom(CreateRoomRequest request) {
@@ -41,8 +42,7 @@ public class RoomService {
         Room room = new Room(
             roomId,
             request.getPassword(),
-            request.getName().trim(),
-            null, // creatorId can be set if user is logged in
+            request.getName().trim(), null, // creatorId can be set if user is logged in
             request.getCreatorUsername().trim()
         );
         

@@ -16,14 +16,16 @@ public class CodeSyncMessage {
     private MessageType type;
 
     // Fields for collaborative editing (cursor and selection)
-    private CursorPosition cursor; // {line: int, ch: int}
-    private TextSelection selection; // {anchor: CursorPosition, head: CursorPosition}
+    private CursorPosition cursor;
+    private TextSelection selection;
 
+
+    //Experimental RealTime Update
     public enum MessageType {
         UPDATE,
         TYPING,
         STOPPED_TYPING,
-        CURSOR_ACTIVITY // New type for just cursor/selection updates
+        CURSOR_ACTIVITY
     }
 
     @Data

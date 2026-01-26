@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ProcessManager {
 
+    //Used concurrent because of multiple users can access seamlessly
     private final Map<String, Process> processes = new ConcurrentHashMap<>();
     private final Map<String, OutputStream> processOutputStreams = new ConcurrentHashMap<>();
 

@@ -7,7 +7,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-//Abid's part
+//Abid's part revision
 @Controller
 public class InteractiveCompilerController {
 
@@ -21,6 +21,7 @@ public class InteractiveCompilerController {
 
     @MessageMapping("/compiler/execute")
     public void execute(@Payload ExecuteCodeRequest request, SimpMessageHeaderAccessor headerAccessor) {
+        //session_ID generation
         String sessionId = headerAccessor.getSessionId();
         compilerService.executeInteractive(request.getCode(), request.getLanguage(), sessionId, (output) -> {
             messagingTemplate.convertAndSendToUser(sessionId, "/topic/compiler/output", output);

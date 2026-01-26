@@ -12,6 +12,8 @@ import java.util.List;
  * REST Controller for Learning Resources
  * Manages educational resources categorized by topics (OOP, DSA, Web Dev, etc.)
  */
+
+//O's part
 @RestController
 @RequestMapping("/api/resources")
 @RequiredArgsConstructor

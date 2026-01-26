@@ -9,12 +9,8 @@ import java.util.Optional;
 //Abid's part
 @Repository
 public interface RoomRepository extends MongoRepository<Room, String> {
-    
     Optional<Room> findByRoomId(String roomId);
-    
     boolean existsByRoomId(String roomId);
-    
-    List<Room> findByCreatorId(String creatorId);
-    
-    List<Room> findByIsActiveTrue();
+    List<Room> findByCreatorId(String creatorId);//Experimental
+    List<Room> findByIsActiveTrue();//Experimental
 }
