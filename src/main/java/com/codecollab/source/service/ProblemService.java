@@ -19,10 +19,13 @@ public class ProblemService {
         return problemRepository.findAllByOrderByCreatedAtDesc();
     }
     
-    public Problem createProblem(String title, String description, MultipartFile photo, MultipartFile file) {
+    public Problem createProblem(String title, String description, String username, String userId, 
+                                 MultipartFile photo, MultipartFile file) {
         Problem problem = new Problem();
         problem.setTitle(title);
         problem.setDescription(description);
+        problem.setUsername(username);
+        problem.setUserId(userId);
         
         // Store photo if provided
         if (photo != null && !photo.isEmpty()) {
@@ -45,3 +48,4 @@ public class ProblemService {
                 .orElseThrow(() -> new RuntimeException("Problem not found with id: " + id));
     }
 }
+

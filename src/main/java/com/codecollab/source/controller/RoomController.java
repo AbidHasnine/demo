@@ -19,8 +19,17 @@ public class RoomController {
     
     private final RoomService roomService;
     
+    /**
+     * Create a new room
+     * Requires: user must be logged in (username and userId in request body)
+     */
     @PostMapping("/create")
-    public ResponseEntity<RoomResponse> createRoom(@RequestBody CreateRoomRequest request) {
+    public ResponseEntity<?> createRoom(@RequestBody CreateRoomRequest request) {
+        // Check if user is authenticated
+        if (request.getCreatorUsername() == null || request.getCreatorUsername().isEmpty()) {
+            return ResponseEntity.status(401).body("User must be logged in to create rooms");
+        }
+        
         RoomResponse response = roomService.createRoom(request);
         if (response.isSuccess()) {
             return ResponseEntity.ok(response);
@@ -28,8 +37,17 @@ public class RoomController {
         return ResponseEntity.badRequest().body(response);
     }
     
+    /**
+     * Join a room
+     * Requires: user must be logged in (username and userId in request body)
+     */
     @PostMapping("/join")
-    public ResponseEntity<RoomResponse> joinRoom(@RequestBody JoinRoomRequest request) {
+    public ResponseEntity<?> joinRoom(@RequestBody JoinRoomRequest request) {
+        // Check if user is authenticated
+        if (request.getUsername() == null || request.getUsername().isEmpty()) {
+            return ResponseEntity.status(401).body("User must be logged in to join rooms");
+        }
+        
         RoomResponse response = roomService.joinRoom(request);
         if (response.isSuccess()) {
             return ResponseEntity.ok(response);
@@ -37,12 +55,18 @@ public class RoomController {
         return ResponseEntity.badRequest().body(response);
     }
     
+    /**
+     * Leave a room
+     */
     @PostMapping("/leave")
     public ResponseEntity<RoomResponse> leaveRoom(@RequestParam String roomId, @RequestParam String username) {
         RoomResponse response = roomService.leaveRoom(roomId, username);
         return ResponseEntity.ok(response);
     }
     
+    /**
+     * Get room details
+     */
     @GetMapping("/{roomId}")
     public ResponseEntity<RoomResponse> getRoom(@PathVariable String roomId) {
         Optional<Room> roomOpt = roomService.getRoomById(roomId);
@@ -67,6 +91,9 @@ public class RoomController {
         return ResponseEntity.ok(response);
     }
     
+    /**
+     * Get room users count
+     */
     @GetMapping("/{roomId}/users-count")
     public ResponseEntity<?> getRoomUsersCount(@PathVariable String roomId) {
         Optional<Room> roomOpt = roomService.getRoomById(roomId);

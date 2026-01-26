@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Check if user is logged in
+    const user = JSON.parse(localStorage.getItem('user') || 'null');
     const createRoomForm = document.getElementById('create-room-form');
+    
+    if (!user) {
+        // User not logged in - show login message
+        if (createRoomForm) {
+            createRoomForm.parentElement.innerHTML = `
+                <div class="alert alert-warning">
+                    <p><i class="fas fa-lock"></i> You must be logged in to create rooms.</p>
+                    <a href="login.html" class="btn btn-primary">Go to Login</a>
+                </div>
+            `;
+        }
+        return;
+    }
+    
     const creatorUsernameInput = document.getElementById('creator-username');
     const roomNameInput = document.getElementById('room-name');
     const roomPasswordInput = document.getElementById('room-password');
@@ -9,72 +25,70 @@ document.addEventListener('DOMContentLoaded', () => {
     const createdRoomIdSpan = document.getElementById('created-room-id');
     const createdRoomPasswordSpan = document.getElementById('created-room-password');
 
-    // Function to set username in local storage
-    const setUsername = (username) => {
-        localStorage.setItem('username', username);
-    };
-
-    // Function to get username from local storage
-    const getUsername = () => {
-        return localStorage.getItem('username');
-    };
-
-    // Populate username if it exists in local storage
-    if (getUsername()) {
-        creatorUsernameInput.value = getUsername();
+    // Pre-fill with logged-in user information
+    if (user && creatorUsernameInput) {
+        creatorUsernameInput.value = user.username;
+        creatorUsernameInput.disabled = true; // User cannot change their username
     }
 
-    createRoomForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        createErrorDiv.textContent = '';
+    if (createRoomForm) {
+        createRoomForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (createErrorDiv) createErrorDiv.textContent = '';
 
-        const username = creatorUsernameInput.value.trim();
-        const roomName = roomNameInput.value.trim();
-        const roomPassword = roomPasswordInput.value.trim();
+            const username = user.username;
+            const roomName = roomNameInput.value.trim();
+            const roomPassword = roomPasswordInput.value.trim();
 
-        if (!username || !roomName || !roomPassword) {
-            createErrorDiv.textContent = 'Please fill in all fields.';
-            return;
-        }
-
-        if (roomPassword.length < 4) {
-            createErrorDiv.textContent = 'Room password must be at least 4 characters long.';
-            return;
-        }
-
-        setUsername(username); // Save username to local storage
-
-        try {
-            const response = await fetch('/api/rooms/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name: roomName, password: roomPassword, creatorUsername: username }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Failed to create room.');
+            if (!roomName || !roomPassword) {
+                if (createErrorDiv) createErrorDiv.textContent = 'Please fill in all fields.';
+                return;
             }
 
-            const room = await response.json();
-            createdRoomIdSpan.textContent = room.roomId;
-            createdRoomPasswordSpan.textContent = room.password; // Display actual password
+            if (roomPassword.length < 4) {
+                if (createErrorDiv) createErrorDiv.textContent = 'Room password must be at least 4 characters long.';
+                return;
+            }
 
-            // Store ONLY password in sessionStorage for later use (not shared data)
-            sessionStorage.setItem('roomPassword', room.password);
-            sessionStorage.setItem('currentRoomId', room.roomId);
-            sessionStorage.setItem('currentUsername', username);
+            try {
+                const response = await fetch('/api/rooms/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        name: roomName, 
+                        password: roomPassword, 
+                        creatorUsername: username,
+                        username: user.username,
+                        creatorId: user.userId
+                    }),
+                });
 
-            roomModal.style.display = 'none';
-            roomCreatedModal.style.display = 'flex';
+                if (!response.ok) {
+                    const errorData = await response.text();
+                    throw new Error(errorData || 'Failed to create room.');
+                }
 
-        } catch (error) {
-            console.error('Error creating room:', error);
-            createErrorDiv.textContent = error.message;
-        }
-    });
+                const room = await response.json();
+                createdRoomIdSpan.textContent = room.roomId;
+                createdRoomPasswordSpan.textContent = room.password; // Display actual password
+
+                // Store ONLY password in sessionStorage for later use (not shared data)
+                sessionStorage.setItem('roomPassword', room.password);
+                sessionStorage.setItem('currentRoomId', room.roomId);
+                sessionStorage.setItem('currentUsername', username);
+                sessionStorage.setItem('currentUserId', user.userId);
+
+                if (roomModal) roomModal.style.display = 'none';
+                if (roomCreatedModal) roomCreatedModal.style.display = 'flex';
+
+            } catch (error) {
+                console.error('Error creating room:', error);
+                if (createErrorDiv) createErrorDiv.textContent = error.message;
+            }
+        });
+    }
 
     window.copyToClipboard = (elementId) => {
         const element = document.getElementById(elementId);
@@ -89,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.enterRoom = () => {
         const roomId = sessionStorage.getItem('currentRoomId');
         const username = sessionStorage.getItem('currentUsername');
-        const roomPassword = sessionStorage.getItem('roomPassword'); // Get password from session storage
+        const roomPassword = sessionStorage.getItem('roomPassword');
 
         if (roomId && username && roomPassword) {
             // Navigate to collab.html - pass ALL data via URL to avoid cross-tab contamination
@@ -100,3 +114,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 });
+

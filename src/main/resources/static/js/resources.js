@@ -4,17 +4,59 @@ const API_BASE_URL = 'http://localhost:8080/api';
 
 let allResources = [];
 
+// Check if user is logged in
+function checkLoginStatus() {
+    const user = localStorage.getItem('user');
+    const resourcesGrid = document.getElementById('resources-grid');
+    const filterButtons = document.querySelector('.filter-buttons');
+    
+    if (!user) {
+        // User not logged in - show login message
+        if (resourcesGrid) {
+            resourcesGrid.innerHTML = `
+                <div class="alert alert-warning" style="grid-column: 1/-1;">
+                    <p><i class="fas fa-lock"></i> You must be logged in to access resources.</p>
+                    <a href="login.html" class="btn btn-primary">Go to Login</a>
+                </div>
+            `;
+        }
+        if (filterButtons) {
+            filterButtons.style.display = 'none';
+        }
+        return false;
+    }
+    if (filterButtons) {
+        filterButtons.style.display = 'flex';
+    }
+    return true;
+}
+
 // Fetch resources from backend
 async function fetchResources() {
     try {
-        const response = await fetch(`${API_BASE_URL}/resources`);
-        if (!response.ok) throw new Error('Failed to fetch resources');
+        const user = JSON.parse(localStorage.getItem('user') || 'null');
+        if (!user) {
+            checkLoginStatus();
+            return;
+        }
+        
+        const response = await fetch(`${API_BASE_URL}/resources?userId=${user.userId}`);
+        if (!response.ok) {
+            if (response.status === 401) {
+                checkLoginStatus();
+                return;
+            }
+            throw new Error('Failed to fetch resources');
+        }
         allResources = await response.json();
         displayResources(allResources);
     } catch (error) {
         console.error('Error fetching resources:', error);
-        document.getElementById('loading').innerHTML = 
-            '<p style="color: var(--danger-color);">Error loading resources. Please try again later.</p>';
+        const loading = document.getElementById('loading');
+        if (loading) {
+            loading.innerHTML = 
+                '<p style="color: var(--danger-color);">Error loading resources. Please try again later.</p>';
+        }
     }
 }
 
@@ -24,15 +66,17 @@ function displayResources(resources) {
     const loading = document.getElementById('loading');
     const emptyState = document.getElementById('empty-state');
     
-    loading.style.display = 'none';
+    if (!resourcesGrid) return;
+    
+    if (loading) loading.style.display = 'none';
     
     if (resources.length === 0) {
         resourcesGrid.innerHTML = '';
-        emptyState.style.display = 'block';
+        if (emptyState) emptyState.style.display = 'block';
         return;
     }
     
-    emptyState.style.display = 'none';
+    if (emptyState) emptyState.style.display = 'none';
     
     resourcesGrid.innerHTML = resources.map(resource => `
         <div class="resource-card">
@@ -77,6 +121,9 @@ function setupCategoryFilters() {
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', () => {
-    setupCategoryFilters();
-    fetchResources();
+    if (checkLoginStatus()) {
+        setupCategoryFilters();
+        fetchResources();
+    }
 });
+

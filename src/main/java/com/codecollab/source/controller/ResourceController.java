@@ -23,17 +23,31 @@ public class ResourceController {
     
     /**
      * Get all resources
+     * Requires: user must be logged in
      */
     @GetMapping
-    public ResponseEntity<List<Resource>> getAllResources() {
+    public ResponseEntity<?> getAllResources(@RequestParam(required = false) String userId) {
+        // Check if user is authenticated
+        if (userId == null || userId.isEmpty()) {
+            return ResponseEntity.status(401).body("User must be logged in to access resources");
+        }
+        
         return ResponseEntity.ok(resourceService.getAllResources());
     }
     
     /**
      * Get resources by category (e.g., "OOP", "DSA", "Web Dev")
+     * Requires: user must be logged in
      */
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<Resource>> getResourcesByCategory(@PathVariable String category) {
+    public ResponseEntity<?> getResourcesByCategory(
+            @PathVariable String category,
+            @RequestParam(required = false) String userId) {
+        // Check if user is authenticated
+        if (userId == null || userId.isEmpty()) {
+            return ResponseEntity.status(401).body("User must be logged in to access resources");
+        }
+        
         return ResponseEntity.ok(resourceService.getResourcesByCategory(category));
     }
     

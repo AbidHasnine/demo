@@ -23,6 +23,7 @@ public class ProblemController {
     
     /**
      * Get all problems (sorted by most recent first)
+     * No authentication required for viewing
      */
     @GetMapping
     public ResponseEntity<List<Problem>> getAllProblems() {
@@ -31,6 +32,7 @@ public class ProblemController {
     
     /**
      * Get a specific problem by ID
+     * No authentication required for viewing
      */
     @GetMapping("/{id}")
     public ResponseEntity<Problem> getProblemById(@PathVariable String id) {
@@ -39,16 +41,25 @@ public class ProblemController {
     
     /**
      * Create a new problem with optional photo and file attachments
+     * Requires: username and userId (user must be logged in)
      * Handles MultipartFile uploads for photos and documents
      */
     @PostMapping
-    public ResponseEntity<Problem> createProblem(
+    public ResponseEntity<?> createProblem(
             @RequestParam("title") String title,
             @RequestParam("description") String description,
+            @RequestParam("username") String username,
+            @RequestParam("userId") String userId,
             @RequestParam(value = "photo", required = false) MultipartFile photo,
             @RequestParam(value = "file", required = false) MultipartFile file) {
         
-        Problem problem = problemService.createProblem(title, description, photo, file);
+        // Check if user is authenticated
+        if (username == null || username.isEmpty() || userId == null || userId.isEmpty()) {
+            return ResponseEntity.status(401).body("User must be logged in to post problems");
+        }
+        
+        Problem problem = problemService.createProblem(title, description, username, userId, photo, file);
         return ResponseEntity.ok(problem);
     }
 }
+
